@@ -8,6 +8,6 @@ package myteamsilvero;
  *
  * @author dam2
  */
-public class Modelo {
+public class MiControladorSilvero {
     
 }

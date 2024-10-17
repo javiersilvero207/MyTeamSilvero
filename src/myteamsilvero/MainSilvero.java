@@ -8,6 +8,13 @@ package myteamsilvero;
  *
  * @author dam2
  */
-public class Controlador {
+public class MainSilvero {
+    
+    
+        public static void main(String[] args) {
+
+        }
+
+    
     
 }
