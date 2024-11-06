@@ -14,12 +14,12 @@ public class MainSilvero {
         public static void main(String[] args) {
             System.out.println("Iniciando programa...");
             // Declaramos objetos del proyecto (MVC)
-            MiModeloSilvero modelo = new MiModeloSilvero();
-            MiVistaSilvero ventana = new MiVistaSilvero();
-            MiControladorSilvero controlador = new MiControladorSilvero(ventana, modelo);
+            MiModeloSilvero modelito = new MiModeloSilvero();
+            MiVistaSilvero ventanita = new MiVistaSilvero();
+            MiControladorSilvero butler = new MiControladorSilvero(ventanita, modelito);
 
             // Se abre la ventana
-            ventana.setVisible(true);
+            ventanita.setVisible(true);
         }
 
     

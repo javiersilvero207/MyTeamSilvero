@@ -11,30 +11,31 @@ package myteamsilvero;
 public class MiControladorSilvero {
     
     //DECLARO VARIABLES DE VISTA Y MODELO
-    private MiVistaSilvero ventana;
-    private MiModeloSilvero modelo;
+    private MiVistaSilvero ventanita;
+    private MiModeloSilvero modelito;
     
-    // HAGO CONSTRUCTOR DEL CONTROLADOR
-    public MiControladorSilvero(MiVistaSilvero ventana, MiModeloSilvero modelo) {
-        this.ventana = ventana;
-        this.modelo = modelo;
+    // HAGO CONSTRUCTOR Y GETTERS AND SETTERS DEL CONTROLADOR
+
+    public MiControladorSilvero(MiVistaSilvero ventanita, MiModeloSilvero modelito) {
+        this.ventanita = ventanita;
+        this.modelito = modelito;
     }
 
-    public MiVistaSilvero getVentana() {
-        return ventana;
+    public MiVistaSilvero getVentanita() {
+        return ventanita;
     }
 
-    public void setVentana(MiVistaSilvero ventana) {
-        this.ventana = ventana;
+    public void setVentanita(MiVistaSilvero ventanita) {
+        this.ventanita = ventanita;
     }
 
-    public MiModeloSilvero getModelo() {
-        return modelo;
+    public MiModeloSilvero getModelito() {
+        return modelito;
     }
 
-    public void setModelo(MiModeloSilvero modelo) {
-        this.modelo = modelo;
+    public void setModelito(MiModeloSilvero modelito) {
+        this.modelito = modelito;
     }
-    
-        
+
+
 }
