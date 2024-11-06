@@ -19,6 +19,22 @@ public class MiControladorSilvero {
         this.ventana = ventana;
         this.modelo = modelo;
     }
+
+    public MiVistaSilvero getVentana() {
+        return ventana;
+    }
+
+    public void setVentana(MiVistaSilvero ventana) {
+        this.ventana = ventana;
+    }
+
+    public MiModeloSilvero getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(MiModeloSilvero modelo) {
+        this.modelo = modelo;
+    }
     
         
 }

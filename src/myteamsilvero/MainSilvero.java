@@ -6,12 +6,13 @@ package myteamsilvero;
 
 /**
  *
- * @author dam2
+ * @author Javier Silvero
  */
 public class MainSilvero {
     
     
         public static void main(String[] args) {
+            System.out.println("Iniciando programa...");
             // Declaramos objetos del proyecto (MVC)
             MiModeloSilvero modelo = new MiModeloSilvero();
             MiVistaSilvero ventana = new MiVistaSilvero();
