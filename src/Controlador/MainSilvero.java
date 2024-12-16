@@ -2,7 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package myteamsilvero;
+package Controlador;
+
+import Modelitos.MiModeloSilvero;
+import Ventanas.MiVistaSilvero;
+import Ventanas.PantallaDeCarga;
 
 /**
  *
@@ -16,10 +20,12 @@ public class MainSilvero {
             // Declaramos objetos del proyecto (MVC)
             MiModeloSilvero modelito = new MiModeloSilvero();
             MiVistaSilvero ventanita = new MiVistaSilvero();
-            MiControladorSilvero butler = new MiControladorSilvero(ventanita, modelito);
+            PantallaDeCarga pantallita = new PantallaDeCarga();
+            MiControladorSilvero butler = new MiControladorSilvero(ventanita, modelito, pantallita);
 
             // Se abre la ventana
-            ventanita.setVisible(true);
+            butler.Arranque();
+
         }
 
     
