@@ -7,6 +7,7 @@ package Controlador;
 import Modelitos.MiModeloSilvero;
 import Ventanas.MiVistaSilvero;
 import Ventanas.PantallaDeCarga;
+import Ventanas.VentanaConf;
 
 /**
  *
@@ -21,9 +22,9 @@ public class MainSilvero {
             MiModeloSilvero modelito = new MiModeloSilvero();
             MiVistaSilvero ventanita = new MiVistaSilvero();
             PantallaDeCarga pantallita = new PantallaDeCarga();
-
+            VentanaConf retoques = new VentanaConf(pantallita, true);
             
-            MiControladorSilvero butler = new MiControladorSilvero(ventanita, modelito, pantallita);
+            MiControladorSilvero butler = new MiControladorSilvero(ventanita, modelito, pantallita, retoques);
 
             // Se abre la ventana
             butler.Arranque();

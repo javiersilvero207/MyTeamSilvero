@@ -7,6 +7,7 @@ package Controlador;
 import Modelitos.MiModeloSilvero;
 import Ventanas.MiVistaSilvero;
 import Ventanas.PantallaDeCarga;
+import Ventanas.VentanaConf;
 import java.awt.event.ActionListener;
 
 /**
@@ -19,7 +20,7 @@ public class MiControladorSilvero {
     private static MiVistaSilvero ventanita;
     private MiModeloSilvero modelito;
     public static PantallaDeCarga pantallita;
-
+    public static VentanaConf retoques;
     // HAGO CONSTRUCTOR Y GETTERS AND SETTERS DEL CONTROLADOR
     
     public void Escuchadores (){
@@ -39,15 +40,17 @@ public class MiControladorSilvero {
     public static void InicioPrincipal(){  
         ventanita.setVisible(true);
     }
-
+    public static void InicioJDialog(){
+        retoques.setVisible(true);
+    } 
     
     
     
-    public MiControladorSilvero(MiVistaSilvero ventanita, MiModeloSilvero modelito, PantallaDeCarga pantallita) {
+    public MiControladorSilvero(MiVistaSilvero ventanita, MiModeloSilvero modelito, PantallaDeCarga pantallita, VentanaConf retoques) {
         this.ventanita = ventanita;
         this.modelito = modelito;
         this.pantallita = pantallita;
-        
+        this.retoques = retoques;        
         Escuchadores();
     }
 

@@ -136,6 +136,7 @@ initComponents();
                   case "OPCIONES":
              System.out.println("e---> Opciones");
                       System.out.println("Redirigiendo a ventana de lista de jugadores");
+                      MiControladorSilvero.InicioJDialog();
              break;
                   case "SALIR":
              System.out.println("Has salido del programa");
