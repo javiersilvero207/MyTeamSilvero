@@ -1,0 +1,712 @@
+public class ControlPinta implements ActionListener, ChangeListener {
+
+private Ventana1Basica   Ventana1;
+private Ventana2Avanzada Ventana2;
+private Ventana3Visor    Ventana3;
+private ModelosPinta MisEstructuras;
+private String  MiTitulo;
+private Boolean Cargada = false;
+
+    /**
+     * Constructor del Controlador
+     * @param Ventana1 ventana básica
+     * @param Ventana2 ventana avanzada
+     * @param Ventana3 ventana visor
+     * @param MisEstructuras mi modelo que gestiona mis datos
+     * @param MiTitulo Sting título de la ventana de turno
+     */
+    public ControlPinta(Ventana1Basica Ventana1, Ventana2Avanzada Ventana2, Ventana3Visor Ventana3, ModelosPinta MisEstructuras, String MiTitulo) {
+        this.Ventana1 = Ventana1;
+        this.Ventana2 = Ventana2;
+        this.Ventana3 = Ventana3;
+        this.MisEstructuras = MisEstructuras;
+        this.MiTitulo = MiTitulo;
+
+        System.out.println("Iniciando el CONTROL ...");
+    }
+
+
+    /**
+     * método que inicia las configuraciones
+     */
+    public void InicialControl(){
+    switch (MiTitulo){
+                case "Ventana1 Básica":
+                    ajustesVentana1();
+                    break;
+                case "Ventana2 Avanzada":
+                    ajustesVentana2();
+                    break;
+                case "Ventana3 Visor":
+                    ajustesVentana3();                
+                    break;
+            }
+
+    }
+   
+    /**
+     * método que inicia las configuraciones de la Ventana 1º Básica
+     */
+    public void ajustesVentana1(){
+        int x,y;
+        Ventana1.setTitle(MiTitulo);
+        Ventana1.setIconTxtFoto(MisEstructuras.CargaFoto("white-tiger"));
+        x= MisEstructuras.getAnchoOriginal();
+        y= MisEstructuras.getAltoOriginal();
+        Ventana1.setBounds(0, 0, x, y);
+
+        Ventana1.escribeTxtEstado("Tamaño: " + x + " " + y + " (propio, agranda la ventana si es necesario)");
+        Ventana1.setVisible(true);
+    }
+
+    /**
+     * método que inicia las configuraciones de la Ventana 2º Avanzada
+     */
+    public void ajustesVentana2(){
+    // Con control total sería
+    //     Ventana2.getOptionEscala().addActionListener(this);
+    // Con control selectivo es:
+        Ventana2.addActionListenerOptionEscala(this);
+        Ventana2.getjSliderEscala().addChangeListener(this);
+        Ventana2.getBtnOK().addActionListener(this);
+    // Con control total sería
+    //     Ventana2.getOptionValores().addActionListener(this);
+    // Con control selectivo es:
+        Ventana2.addActionListenerOptionValores(this);
+        Ventana2.setTitle(MiTitulo);
+        Ventana2.setIconTxtFoto(MisEstructuras.CargaFoto("miniCat"));
+
+        Ventana2.escribeTxtEstado("Tamaño: ");
+        Ventana2.setVisible(true);
+    }
+
+    /**
+     * método que inicia las configuraciones de la Ventana 3º Visor
+     */
+    public void ajustesVentana3(){
+        Ventana3.setTitle(MiTitulo);
+    //  Ventana3.setIconTxtFoto(MisEstructuras.CargaFoto("miniCat"));
+
+        Ventana3.getBtnAbrir().addActionListener(this);
+        Ventana3.getBtnLimpiar().addActionListener(this);
+        Ventana3.escribeTxtEstado("Img: ");
+        Ventana3.setVisible(true);
+    }
+
+    /**
+    * método que actua por Clicks
+    * @param arg0 tipo enento ActionEvent
+    */
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+        // Control del evnto
+        System.out.println( arg0.getActionCommand() );
+        switch (arg0.getActionCommand()){
+            case "%":
+                casoPorciento();
+                break;
+            case "Ok":
+                casoOk();
+                break;
+            case "OK":
+                casoOK();
+                break;
+            case "💾 Abrir":
+                casoAbrir();
+                break;
+            case "💣 Limpiar":
+                casoLimpiar();
+                break;
+            default:
+                System.out.println("Se ha pulsado algo ???");
+        }
+    }
+
+    /**
+    * método que actua por Clicks
+    * @param e tipo enento ChangeEvent
+    */
+    @Override
+    public void stateChanged(ChangeEvent e){
+    //    System.out.println("e->" + e.toString());
+        Ventana2.setIconTxtFoto( MisEstructuras.CargaFoto(Ventana2.getjSliderEscala().getValue()) );
+        Ventana2.escribeTxtEstado("Tamaño: " + Ventana2.getjSliderEscala().getValue() + "%");
+    }
+
+    /**
+    * método de carga la imagen por defecto
+    */
+    public void cargaTigre(){
+        if (Cargada == false){
+            Cargada = true;
+            Ventana2.setIconTxtFoto(MisEstructuras.CargaFoto("white-tiger"));
+        }
+    }
+
+    /**
+    * Acciones a realizar cuando de acciona el radio botón %
+    */
+    public void casoPorciento(){
+        System.out.println("He pulsado el %");
+        Ventana2.getjSliderEscala().setEnabled(true);
+        Ventana2.getjSliderEscala().setValue(100);
+        Ventana2.getBtnOK().setEnabled(false);
+        Ventana2.getjTextX().setEnabled(false);
+        Ventana2.getjTextY().setEnabled(false);
+        cargaTigre();
+        Ventana2.escribeTxtEstado("Tamaño: " + Ventana2.getjSliderEscala().getValue() + "%");
+    }
+
+    /**
+    * Acciones a realizar cuando de acciona el radio botón Ok
+    */
+    public void casoOk(){
+        System.out.println("He pulsado el Ok");
+        Ventana2.getjSliderEscala().setEnabled(false);
+        Ventana2.getBtnOK().setEnabled(true);
+        Ventana2.getjTextX().setEnabled(true);
+        Ventana2.getjTextX().setText("400");
+        Ventana2.getjTextY().setEnabled(true);
+        Ventana2.getjTextY().setText("300");
+        cargaTigre();
+        Ventana2.escribeTxtEstado("Tamaño:  X: 400  Y: 300");
+    }
+
+    /**
+    * Acciones a realizar cuando de acciona el botón OK
+    */
+    public void casoOK(){
+        System.out.println("He pulsado el Botón OK");
+        int x,y;
+        x = MisEstructuras.ConvierteLimitado(Ventana2.getjTextX().getText());
+        y = MisEstructuras.ConvierteLimitado(Ventana2.getjTextY().getText());
+        Ventana2.setIconTxtFoto( MisEstructuras.CargaFoto(x, y) );
+        Ventana2.escribeTxtEstado("Tamaño:  X: " + x + "  Y: " + y);
+    }
+
+    /**
+    * Acciones a realizar cuando de acciona el botón Abrir
+    */
+    public void casoAbrir(){
+        String s="";
+        System.out.println("Pulsado Botón Abrir");
+        s = MisEstructuras.BuscarFoto();
+        System.out.println("s-> " + s);
+        Ventana3.setIconTxtFoto( MisEstructuras.CargaFoto(s) );
+        Ventana3.escribeTxtEstado("Img:  " + MisEstructuras.nombreArchivo());
+    }
+
+    /**
+    * Acciones a realizar cuando de acciona el botón Limpiar
+    */
+    public void casoLimpiar(){
+        System.out.println("Pulsado Botón Limpiar");
+        Ventana3.escribeTxtEstado("Img: ...");
+        Ventana3.setIconTxtFoto(null);
+    }
+
+}
+
+    public static void main(String[] args) {
+        Boolean Elegido = false;
+        System.out.println("Iniciando JPintaMVC ...");
+        System.out.println("Se han pasado " + args.length + " argumentos.");
+
+        int optionT=0;
+        String[] optionesVentana={"Básica", "Avanzada","Visor"};
+        optionT = JOptionPane.showOptionDialog(null, "Control de presentación de imágenes", "Seleccione VENTANA de arranque", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionesVentana, "Básica");
+
+        ModelosPinta MisModelos = new ModelosPinta();
+        ControlPinta MiControl=null;
+
+        switch (optionT){
+            case 0:
+                System.out.println("Iniciando Básica ...");
+                Ventana1Basica VBasica = new Ventana1Basica();
+                MiControl = new ControlPinta(VBasica, null, null, MisModelos, "Ventana1 Básica");
+                Elegido = true;
+                break;
+            case 1:
+                System.out.println("Iniciando Avanzada ...");
+                Ventana2Avanzada VAvanzada = new Ventana2Avanzada();
+                MiControl = new ControlPinta(null, VAvanzada, null, MisModelos, "Ventana2 Avanzada");
+                Elegido = true;
+                break;
+            case 2:
+                System.out.println("Iniciando Visor ...");
+                Ventana3Visor VVisor = new Ventana3Visor();
+                MiControl = new ControlPinta(null ,null ,VVisor, MisModelos, "Ventana3 Visor");
+                Elegido = true;
+                break;
+            default:
+                System.out.println("No se lanza ventana alguna.");
+        }
+        if( Elegido == true ){
+               MiControl.InicialControl();
+        }
+ 
+    }
+    
+}
+public class ModelosPinta {
+
+private String Titulo;
+private File Archivo;
+private ImageIcon miIcono;
+private ImageIcon pequeIcono;
+private Image fotoTmp;
+private Image fotoEscalada;
+int anchoOriginal = 0;
+int altoOriginal  = 0;
+int anchoFinal, altoFinal;
+
+    /**
+    * El constructor de la clase
+    * iniciando la lectura de archivos inetrnos
+    */
+    public ModelosPinta() {
+        System.out.println("Iniciando mis MODELOS ...   ");
+        pequeIcono = new ImageIcon(getClass().getResource("/jpintamvc/imagenes/miniCat.png"));
+        miIcono = new ImageIcon(getClass().getResource("/jpintamvc/imagenes/white-tiger-1513723_640.jpg"));
+        anchoOriginal = miIcono.getIconWidth();
+        altoOriginal = miIcono.getIconHeight();
+    }
+
+    /**
+    * Método get estandar
+    * @return anchoOriginal tipo entero 
+    */
+    public int getAnchoOriginal() {
+        return anchoOriginal;
+    }
+
+    /**
+    * Método get estandar
+    * @return altoOriginal tipo entero 
+    */
+    public int getAltoOriginal() {
+        return altoOriginal;
+    }
+
+    /**
+    * método controlado de conversión de String a entero
+    * con un rango predefinido.
+    * @param campo tipo String
+    * @return valor entero retocado
+    */
+    public int ConvierteLimitado(String campo){
+        int t=0;
+        try{
+            t = Integer.parseInt(campo) ;
+        }catch(NumberFormatException e){
+            System.out.println("e:" + e.getMessage());
+        }
+        System.out.println("salida t inicial " + t);
+        if ( t<10 ){
+            t=10;
+        }
+        System.out.println("salida t final " + t);
+        return t;
+    }
+
+    /**
+    * método sobrecargado para cargar una ImageIcon
+    * @param Nombre tipo String
+    * @return la ImageIcon seleccionada por Nombre
+    */
+    public ImageIcon CargaFoto(String Nombre) {
+        ImageIcon tmp=null;
+        switch (Nombre){
+            case "miniCat":
+                tmp=pequeIcono;
+                break;
+            case "white-tiger":
+                tmp=miIcono;
+                break;
+            default:
+                miIcono = new ImageIcon(Nombre);
+                tmp=miIcono;
+        }
+        return tmp;
+    }
+
+    /**
+    * método sobrecargado para cargar una ImageIcon
+    * @param WIDTH tipo entero como ancho
+    * @param HEIGHT tipo entero como alto
+    * @return la ImageIcon seleccionada por tamaño
+    */
+    public ImageIcon CargaFoto(int WIDTH, int HEIGHT){
+        ImageIcon tmp=null;
+        //miIcono = new ImageIcon(getClass().getResource("/jpinta/imagenes/white-tiger-1513723_640.jpg"));
+        fotoTmp = miIcono.getImage();
+        fotoEscalada = fotoTmp.getScaledInstance(WIDTH, HEIGHT, Image.SCALE_SMOOTH);
+
+        tmp = new ImageIcon(fotoEscalada);
+        return tmp;
+    }
+
+    /**
+    * método sobrecargado para cargar una ImageIcon
+    * @param PORCENTAJE tipo entero como porcentaje a mostar
+    * @return la ImageIcon seleccionada por % de tamaño
+    */
+    public ImageIcon CargaFoto(int PORCENTAJE){
+        ImageIcon tmp=null;
+        int anchoOriginal, altoOriginal, anchoFinal, altoFinal;
+        //miIcono = new ImageIcon(getClass().getResource("/jpinta/imagenes/white-tiger-1513723_640.jpg"));
+        fotoTmp = miIcono.getImage();
+        anchoOriginal = miIcono.getIconWidth();
+        altoOriginal = miIcono.getIconHeight();
+        anchoFinal = (int)( (((double) anchoOriginal) * PORCENTAJE)/100 );
+        altoFinal = (int)( (((double) altoOriginal) * PORCENTAJE)/100 );
+
+        fotoEscalada = fotoTmp.getScaledInstance(anchoFinal, altoFinal, Image.SCALE_SMOOTH);
+        tmp = new ImageIcon(fotoEscalada);
+        return tmp;
+    }
+
+
+    /**
+    * método que lanza un diálogo de busqueda
+    * @return Retorna la foto a abrir
+    */
+    public String BuscarFoto(){
+        int salidaDelDialogo=0;
+        String NombreArchivo="";
+
+        JFileChooser buscador = new JFileChooser();
+        salidaDelDialogo = buscador.showOpenDialog(null) ;
+        if( salidaDelDialogo == JFileChooser.APPROVE_OPTION ){
+            Archivo = buscador.getSelectedFile();
+            NombreArchivo = Archivo.getPath();
+        }
+        return NombreArchivo;
+    }
+
+    /**
+    * Doy control selectivo, sólo para obtener el nombre de la foto.
+    * @return Retorna el nombre
+    */
+    public String nombreArchivo() {
+        return Archivo.getName();
+    }
+
+    /**
+    * Método get estandar
+    * @return Titulo tipo String 
+    */
+    public String getTitulo() {
+        return Titulo;
+    }
+
+    /**
+    * Método set estandar
+    * @param Titulo tipo String 
+    */
+    public void setTitulo(String Titulo) {
+        this.Titulo = Titulo;
+    }
+
+
+}
+public class Ventana1Basica extends javax.swing.JFrame {
+
+    /**
+     * Constructor de la ventana básica
+     */
+    public Ventana1Basica() {
+        initComponents();
+        System.out.println("Lanzando la ventana BÁSICA");
+//        setBounds(0,0,300,200);
+        this.setLocationRelativeTo(null);
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        txtFoto = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Básico MVC");
+
+        txtFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(txtFoto, java.awt.BorderLayout.CENTER);
+
+        txtEstado.setText("Tamaño:");
+        getContentPane().add(txtEstado, java.awt.BorderLayout.PAGE_END);
+
+        pack();
+    }// </editor-fold>                        
+
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JLabel txtEstado;
+    private javax.swing.JLabel txtFoto;
+    // End of variables declaration                   
+
+    /**
+    * Doy control selectivo, sólo a la capacidad de cargar una imagen.
+    */
+    public void setIconTxtFoto(ImageIcon MiImagen) {
+        this.txtFoto.setIcon(MiImagen); ;
+    }
+
+    /**
+    * Doy control selectivo, sólo a la capacidad de escribir.
+    */
+    public void escribeTxtEstado(String s) {
+        txtEstado.setText(s);
+        System.out.println(s);
+    }
+
+}
+public class Ventana2Avanzada extends javax.swing.JFrame {
+
+    /**
+     * Constructor de la ventana Avanzada
+     */
+    public Ventana2Avanzada() {
+        initComponents();
+        System.out.println("Lanzando la ventana AVANZADA");
+        setBounds(0,0,500,400);
+        this.setLocationRelativeTo(null);
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        buttonGroupOption = new javax.swing.ButtonGroup();
+        PanelNorte = new javax.swing.JPanel();
+        optionEscala = new javax.swing.JRadioButton();
+        jSliderEscala = new javax.swing.JSlider();
+        optionValores = new javax.swing.JRadioButton();
+        jTextX = new javax.swing.JTextField();
+        jTextY = new javax.swing.JTextField();
+        btnOK = new javax.swing.JButton();
+        txtFoto = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        buttonGroupOption.add(optionEscala);
+        optionEscala.setText("%");
+        PanelNorte.add(optionEscala);
+
+        jSliderEscala.setEnabled(false);
+        PanelNorte.add(jSliderEscala);
+
+        buttonGroupOption.add(optionValores);
+        optionValores.setText("Ok");
+        PanelNorte.add(optionValores);
+
+        jTextX.setColumns(3);
+        jTextX.setEnabled(false);
+        PanelNorte.add(jTextX);
+
+        jTextY.setColumns(3);
+        jTextY.setEnabled(false);
+        PanelNorte.add(jTextY);
+
+        btnOK.setText("OK");
+        btnOK.setEnabled(false);
+        PanelNorte.add(btnOK);
+
+        getContentPane().add(PanelNorte, java.awt.BorderLayout.PAGE_START);
+
+        txtFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(txtFoto, java.awt.BorderLayout.CENTER);
+
+        txtEstado.setText("Tamaño:");
+        getContentPane().add(txtEstado, java.awt.BorderLayout.PAGE_END);
+
+        pack();
+    }// </editor-fold>                        
+
+
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JPanel PanelNorte;
+    private javax.swing.JButton btnOK;
+    private javax.swing.ButtonGroup buttonGroupOption;
+    private javax.swing.JSlider jSliderEscala;
+    private javax.swing.JTextField jTextX;
+    private javax.swing.JTextField jTextY;
+    private javax.swing.JRadioButton optionEscala;
+    private javax.swing.JRadioButton optionValores;
+    private javax.swing.JLabel txtEstado;
+    private javax.swing.JLabel txtFoto;
+    // End of variables declaration                   
+
+    /**
+    * Doy control selectivo, sólo a la capacidad de cargar una imagen.
+    */
+    public void setIconTxtFoto(ImageIcon MiImagen) {
+        this.txtFoto.setIcon(MiImagen); ;
+    }
+
+    /**
+    * Doy control selectivo, sólo a la capacidad de escuchar.
+    */
+    public void addActionListenerOptionEscala(ActionListener l) {
+        optionEscala.addActionListener(l);
+    }
+
+    /**
+    * Doy control selectivo, sólo a la capacidad de escuchar.
+    */
+    public void addActionListenerOptionValores(ActionListener l) {
+        optionValores.addActionListener(l);
+    }
+
+
+    /**
+    * Doy control total del Botón OK
+    */
+    public JButton getBtnOK() {
+        return btnOK;
+    }
+
+    /**
+    * Doy control total del deslizador
+    */
+    public JSlider getjSliderEscala() {
+        return jSliderEscala;
+    }
+
+    /**
+    * Doy control total de la caja de texto
+    */
+    public JTextField getjTextX() {
+        return jTextX;
+    }
+
+    /**
+    * Doy control total de la caja de texto
+    */
+    public JTextField getjTextY() {
+        return jTextY;
+    }
+
+    /**
+    * Doy control selectivo, sólo a la capacidad de escribir.
+    */
+    public void escribeTxtEstado(String s) {
+        txtEstado.setText(s);
+        System.out.println(s);
+    }
+
+
+}
+public class Ventana3Visor extends javax.swing.JFrame {
+
+    /**
+     * Constructor de la ventana Visor
+     */
+    public Ventana3Visor() {
+        initComponents();
+        System.out.println("Lanzando la ventana VISOR");
+        setBounds(0,0,400,300);
+        this.setLocationRelativeTo(null);
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        BarraHerramientas = new javax.swing.JToolBar();
+        btnAbrir = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        txtFoto = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        BarraHerramientas.setBackground(new java.awt.Color(0, 255, 204));
+        BarraHerramientas.setRollover(true);
+
+        btnAbrir.setBackground(new java.awt.Color(153, 204, 255));
+        btnAbrir.setText("💾 Abrir");
+        btnAbrir.setFocusable(false);
+        btnAbrir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAbrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BarraHerramientas.add(btnAbrir);
+
+        btnLimpiar.setBackground(new java.awt.Color(255, 204, 153));
+        btnLimpiar.setText("💣 Limpiar");
+        btnLimpiar.setFocusable(false);
+        btnLimpiar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnLimpiar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BarraHerramientas.add(btnLimpiar);
+
+        getContentPane().add(BarraHerramientas, java.awt.BorderLayout.PAGE_START);
+
+        txtFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(txtFoto, java.awt.BorderLayout.CENTER);
+
+        txtEstado.setText("Img:");
+        getContentPane().add(txtEstado, java.awt.BorderLayout.PAGE_END);
+
+        pack();
+    }// </editor-fold>                        
+
+
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JToolBar BarraHerramientas;
+    private javax.swing.JButton btnAbrir;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JLabel txtEstado;
+    private javax.swing.JLabel txtFoto;
+    // End of variables declaration                   
+
+    /**
+    * Doy control selectivo, sólo a la capacidad de cargar una imagen.
+    */
+    public void setIconTxtFoto(ImageIcon MiImagen) {
+        System.out.println("Insertando foto");
+        this.txtFoto.setIcon(MiImagen);
+    }
+
+    /**
+    * Doy control selectivo, sólo a la capacidad de escribir.
+    */
+    public void escribeTxtEstado(String s) {
+        txtEstado.setText(s);
+        System.out.println(s);
+    }
+
+    /**
+    * Doy control total del Botón Abrir
+    */
+    public JButton getBtnAbrir() {
+        return btnAbrir;
+    }
+
+    /**
+    * Doy control total del Botón Limpiar
+    */
+    public JButton getBtnLimpiar() {
+        return btnLimpiar;
+    }
+
+
+}

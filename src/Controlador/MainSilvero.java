@@ -21,6 +21,8 @@ public class MainSilvero {
             MiModeloSilvero modelito = new MiModeloSilvero();
             MiVistaSilvero ventanita = new MiVistaSilvero();
             PantallaDeCarga pantallita = new PantallaDeCarga();
+
+            
             MiControladorSilvero butler = new MiControladorSilvero(ventanita, modelito, pantallita);
 
             // Se abre la ventana

@@ -7,6 +7,7 @@ package Controlador;
 import Modelitos.MiModeloSilvero;
 import Ventanas.MiVistaSilvero;
 import Ventanas.PantallaDeCarga;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -18,11 +19,19 @@ public class MiControladorSilvero {
     private static MiVistaSilvero ventanita;
     private MiModeloSilvero modelito;
     public static PantallaDeCarga pantallita;
+
     // HAGO CONSTRUCTOR Y GETTERS AND SETTERS DEL CONTROLADOR
+    
+    public void Escuchadores (){
+    ventanita.addActionListenerbtnEmpezar(this);
+    ventanita.addActionListenerbtnOpciones(this);
+    ventanita.addActionListenerbtnSalir(this);
+}
     public static void Arranque (){
     InicioCarga();
     pantallita.dispose();
     InicioPrincipal();
+    
     }
     public static void InicioCarga(){  
         pantallita.setVisible(true);
@@ -38,6 +47,8 @@ public class MiControladorSilvero {
         this.ventanita = ventanita;
         this.modelito = modelito;
         this.pantallita = pantallita;
+        
+        Escuchadores();
     }
 
     public MiVistaSilvero getVentanita() {

@@ -5,6 +5,8 @@
 package Ventanas;
 
 import Controlador.MiControladorSilvero;
+import Modelitos.MiModeloSilvero;
+import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,7 +26,7 @@ public class PantallaDeCarga extends javax.swing.JFrame {
     
     public PantallaDeCarga() {    
         initComponents();
-        setSize(500, 300);
+        getPreferredSize();
         setResizable(false);
         setVisible(true);
         try {
@@ -85,4 +87,8 @@ public class PantallaDeCarga extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBarraDeCarga;
     // End of variables declaration//GEN-END:variables
+
+    private void getPreferredSize(int i, int i0) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
