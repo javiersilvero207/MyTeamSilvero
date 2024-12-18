@@ -47,34 +47,24 @@ public class PantallaDeCarga extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        Cargando = new javax.swing.JLabel();
-        lblBarraDeCarga = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Cargando.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
-        Cargando.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Cargando.setText("CARGANDO....");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PantallaCargaIcono.PNG"))); // NOI18N
+        jLabel2.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Cargando, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
-                    .addComponent(lblBarraDeCarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 604, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Cargando, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBarraDeCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -83,9 +73,8 @@ public class PantallaDeCarga extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Cargando;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblBarraDeCarga;
     // End of variables declaration//GEN-END:variables
 
     private void getPreferredSize(int i, int i0) {

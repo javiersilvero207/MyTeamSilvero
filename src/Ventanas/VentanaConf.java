@@ -5,8 +5,12 @@
 package Ventanas;
 
 import Controlador.MiControladorSilvero;
+import Modelitos.MiModeloSilvero;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -17,14 +21,14 @@ import javax.swing.JTextField;
  */
 public class VentanaConf extends javax.swing.JDialog implements ActionListener{
 Controlador.MiControladorSilvero controlcito = new MiControladorSilvero();
+Modelitos.MiModeloSilvero modelito = new MiModeloSilvero();
     /**
      * Creates new form VentanaConf
      */
     public VentanaConf(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        System.out.println("Entrando a lista de jugadores");
+
         initComponents();
-        System.out.println("Dentro de lista de jugadores");
         
     }
 
@@ -55,7 +59,7 @@ Controlador.MiControladorSilvero controlcito = new MiControladorSilvero();
 
         jLabel2.setText("Equipo: ");
 
-        jLabel3.setText("Base: ");
+        jLabel3.setText("Posicion:");
 
         TFNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,7 +123,7 @@ Controlador.MiControladorSilvero controlcito = new MiControladorSilvero();
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(TFEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(TFPosicion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -173,8 +177,9 @@ Controlador.MiControladorSilvero controlcito = new MiControladorSilvero();
     }//GEN-LAST:event_TFPosicionActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        controlcito.agregarJugador();
+        modelito.agregarJugador();
         JOptionPane.showMessageDialog(rootPane, "Agregado correctamente");
+        ;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -230,10 +235,7 @@ Controlador.MiControladorSilvero controlcito = new MiControladorSilvero();
     public void addActionListenerTFPosicion(MiControladorSilvero aThis) {
         TFPosicion.addActionListener(this);
     }
-
-    public void setjLabel6(String jugador) {
-       
-    }
-
-
 }
+
+
+
